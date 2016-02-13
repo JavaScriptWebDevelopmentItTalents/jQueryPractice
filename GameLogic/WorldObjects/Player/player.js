@@ -330,7 +330,6 @@ var player = (function iife(parent, IObservable, observer) {
              * @param data
              */
             value: function(event, data) {
-                debugger;
                 var i;
                 for (i = 0; i < this.observers.length; i+=1) {
                     this.observers[i].update(event, data);

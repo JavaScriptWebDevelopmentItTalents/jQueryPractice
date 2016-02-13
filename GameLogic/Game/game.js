@@ -132,9 +132,6 @@ var game = (function iife() {
              * Starts interval with this.main loop.
              */
             value: function start() {
-
-                $('body').css("background", "url('img/cool-background-wallpapers-themes-media-3980.jpg') 1500px 0");
-
                 self.objectPool.forEach(
                     function callback(object) {
                         self.spawn(object);
@@ -201,9 +198,8 @@ var game = (function iife() {
                         player.position.top < (obstacle.position.top + obstacle.size.height) &&
                         (player.position.top + player.size.height) > obstacle.position.top) {
                         player.takeHit();
-                        obstacle.position.top = 0;
-                        obstacle.draw();
                         obstacle.hide();
+                        obstacle.hasPoints = false;
                         return;
                     }
                 }
@@ -211,17 +207,16 @@ var game = (function iife() {
         },
         checkForEvade: {
             value: function checkForEvade(obstacle){
-                if(obstacle.position.left < 2 && obstacle.position.left > 1){
+                if(obstacle.position.left === 0 && obstacle.hasPoints){
                     self.player.evade();
+                    obstacle.hasPoints = false;
                     return;
                 }
             }
         },
         gameOver: {
             value: function gameOver() {
-                $('body').css("background", "url('img/Game-Over-Text-Retro-Game-Wallpaper-HD.jpg') -250px -200px");
-                self.pause();
-                document.location.hash = '#';
+                document.location.hash = '#modal';
             }
         }
     });

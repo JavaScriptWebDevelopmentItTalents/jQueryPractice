@@ -34,7 +34,6 @@ var obstacle = (function iife(parent) {
                     height: OBSTACLE_CONSTANTS.height
                 };
                 self.hide();
-
                 return self;
             }
         },
@@ -79,7 +78,7 @@ var obstacle = (function iife(parent) {
                             self.position.left = parseFloat(self.dom.css("left"));
                         },
                         complete: function hide() {
-                            self.dom.hide(OBSTACLE_CONSTANTS.hideTime, self.dom.css("display", "none"));
+                            self.dom.hide(0, self.dom.css("display", "none"));
                             self.isUsed = false;
                         },
                         duration: OBSTACLE_CONSTANTS.animationTime
@@ -111,7 +110,7 @@ var obstacle = (function iife(parent) {
              */
             value: function hide() {
                 var self = this;
-                self.dom.hide(OBSTACLE_CONSTANTS.hideTime, self.dom.css("display", "none"));
+                self.dom.hide(0, self.dom.css("display", "none"));
                 self.isUsed = false;
             }
         },
@@ -121,6 +120,7 @@ var obstacle = (function iife(parent) {
              */
             value: function show() {
                 var self = this;
+                self.hasPoints = true;
                 self.position = {
                     left: OBSTACLE_CONSTANTS.left,
                     top: self.randomPos()
@@ -128,6 +128,14 @@ var obstacle = (function iife(parent) {
                 self.dom.css("display", "inline");
                 self.draw();
                 self.isUsed = true;
+            }
+        },
+        hasPoints: {
+            get: function get() {
+                return this._hasPoints;
+            },
+            set: function set(value) {
+                this._hasPoints = value;
             }
         }
     });
